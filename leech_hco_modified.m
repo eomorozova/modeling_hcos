@@ -1,22 +1,22 @@
-x = xolotl.examples.networks.LeechHeartbeat;
+x = LeechHeartbeat;
 
-A=1;
+A=0.005; % mm^2
 
 % add Ca mechanism
-f=940; % 0.94uM/1000 (because all the conductances are 1000 times smaller than in stg... (asume small A?))
+f=20; % based on thin shell calculation (f=tau/(2*F*A*d)), d=0.1 um
 
 x.HN3R.add('prinz/CalciumMech','f',f);
 x.HN3L.add('prinz/CalciumMech','f',f);
 
 % add KCa
 gKCa=0;
-x.HN3R.add('prinz\KCa','gbar',gKCa/(A*1000),'E',-70);
-x.HN3L.add('prinz\KCa','gbar',gKCa/(A*1000),'E',-70);
+x.HN3R.add('prinz/KCa','gbar',gKCa/(A*1000),'E',-70);
+x.HN3L.add('prinz/KCa','gbar',gKCa/(A*1000),'E',-70);
 
 % add Kir
 gKir=0;
-x.HN3R.add('amarillo\Kir','gbar',gKir/(A*1000),'E',-70);
-x.HN3L.add('amarillo\Kir','gbar',gKir/(A*1000),'E',-70);
+x.HN3R.add('amarillo/Kir','gbar',gKir/(A*1000),'E',-70);
+x.HN3L.add('amarillo/Kir','gbar',gKir/(A*1000),'E',-70);
 
 Vth = -50; % synaptic threshold (mV)
 x.set('*.Vth',Vth);
@@ -28,10 +28,10 @@ x.closed_loop = false;
 data = x.integrate;
 
 % set conductances to the values similar to other K currents in the model
-gKCa=80/1000; % uS/mm^2
+gKCa=100/(A*1000); % uS/mm^2
 x.set('HN3R.KCa.gbar',gKCa); x.set('HN3L.KCa.gbar',gKCa);
 
-gKir=80/1000;
+gKir=100/(A*1000);
 x.set('HN3R.Kir.gbar',gKir); x.set('HN3L.Kir.gbar',gKir);
 
 x.closed_loop = false;
