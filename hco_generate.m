@@ -5,7 +5,7 @@
 % and neurons with conducnatces randomly sampled from  a uniform distribution
 
 % set up a neuron/ network
-p = xfind;
+p = xfind_hco;
 p.x = HalfCenterOscillator;
 p.x.t_end = 90e3; % msec
 
@@ -38,11 +38,11 @@ p.SimFcn = @p.measureFiringRate;
 % keep all the networks
 p.DiscardFcn = @(data) data <= 0;
 
-%p.simulate
+p.simulate
 
-p.parallelSearch
+%p.parallelSearch
 
 % wait for a bit
-pause(1200)
+%pause(1200)
 
-cancel(p.workers)
+%cancel(p.workers)
