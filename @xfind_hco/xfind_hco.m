@@ -65,9 +65,8 @@ methods
 		% stream data to disk
         fwrite(f,params,'double');
 		fwrite(f,data,'double');
-        %fwrite(f,[-1,st1',-2],'double'); % save spike times for neuron 1
-        fwrite(f,['start1',st1','end1'],'double'); % save spike times for neuron 1
-        fwrite(f,['start2',st2','end2'],'double'); % save spike times for neuron 2
+        fwrite(f,[-1,st1',-2],'double'); % save spike times for neuron 1
+        fwrite(f,[-3,st1',-4],'double'); % save spike times for neuron 1
 	end
 
 
